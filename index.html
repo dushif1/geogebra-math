@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数学学习空间 - GeoGebra应用</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #27ae60;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 头部样式 */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo i {
+            font-size: 2.5rem;
+            color: var(--light);
+        }
+        
+        .logo h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+        
+        .logo span {
+            color: #f1c40f;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* 主体内容 */
+        .hero {
+            padding: 4rem 0;
+            text-align: center;
+            background-color: white;
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: #555;
+        }
+        
+        .intro {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            padding: 3rem 0;
+        }
+        
+        .intro-text {
+            flex: 1;
+        }
+        
+        .intro-text h3 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .intro-image {
+            flex: 1;
+            background-color: var(--light);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .intro-image i {
+            font-size: 8rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+        
+        /* 示例部分 */
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-top: 2rem;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            font-size: 1.1rem;
+        }
+        
+        .examples {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            padding: 2rem 0 4rem;
+        }
+        
+        .example-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .example-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .example-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1.2rem;
+            text-align: center;
+        }
+        
+        .example-header h4 {
+            font-size: 1.4rem;
+        }
+        
+        .example-content {
+            padding: 1.5rem;
+        }
+        
+        .example-content p {
+            margin-bottom: 1.5rem;
+            color: #555;
+        }
+        
+        .geogebra-container {
+            background-color: #f5f7fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .geogebra-container i {
+            font-size: 4rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+        
+        .example-link {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        
+        .example-link:hover {
+            background-color: #2980b9;
+        }
+        
+        /* 资源部分 */
+        .resources {
+            background-color: var(--light);
+            padding: 3rem 0;
+        }
+        
+        .resource-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 2rem;
+        }
+        
+        .resource-item {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .resource-item i {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+        
+        /* 页脚 */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 0 2rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-section h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1.2rem;
+            color: #f1c40f;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--secondary);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            
+            nav ul {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .intro {
+                flex-direction: column;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部 -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-square-root-alt"></i>
+                <h1>数学学习<span>空间</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">首页</a></li>
+                    <li><a href="#about">关于</a></li>
+                    <li><a href="#examples">GeoGebra示例</a></li>
+                    <li><a href="#resources">资源</a></li>
+                    <li><a href="#contact">联系</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 主区域 -->
+    <main>
+        <section class="hero" id="home">
+            <div class="container">
+                <h2>探索数学的奇妙世界</h2>
+                <p>欢迎来到我的个人数学学习空间！这里是我使用GeoGebra探索、可视化和理解数学概念的地方。通过交互式示例，让抽象的数学概念变得直观易懂。</p>
+                <a href="#examples" class="example-link">查看示例 <i class="fas fa-arrow-down"></i></a>
+            </div>
+        </section>
+
+        <section class="intro" id="about">
+            <div class="container">
+                <div class="intro-text">
+                    <h3>关于这个网站与GeoGebra</h3>
+                    <p>这是一个个人数学学习项目，专注于使用GeoGebra这款强大的动态数学软件来探索和理解各种数学概念。</p>
+                    <p>GeoGebra将几何、代数、表格、图形、统计和微积分整合到一个易于使用的软件包中，是学习数学的绝佳工具。</p>
+                    <p>在这里，我分享自己使用GeoGebra创建的各种数学可视化示例，涵盖从基础几何到微积分的多个领域。这些交互式示例可以帮助您更直观地理解数学概念。</p>
+                    <p>无论您是学生、教师还是数学爱好者，希望这个网站能为您提供有价值的资源和灵感。</p>
+                </div>
+                <div class="intro-image">
+                    <i class="fas fa-calculator"></i>
+                    <h3>GeoGebra 优势</h3>
+                    <p>• 免费开源软件</p>
+                    <p>• 跨平台使用</p>
+                    <p>• 交互式学习体验</p>
+                    <p>• 连接几何与代数</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- GeoGebra示例部分 -->
+        <section id="examples">
+            <div class="container">
+                <h2 class="section-title">GeoGebra 交互示例</h2>
+                <p class="section-subtitle">点击下方示例链接，探索GeoGebra创建的交互式数学可视化。这些示例展示了如何将抽象的数学概念转化为直观的动态图形。</p>
+                
+                <div class="examples">
+                    <!-- 示例1 -->
+                    <div class="example-card">
+                        <div class="example-header">
+                            <h4>勾股定理可视化</h4>
+                        </div>
+                        <div class="example-content">
+                            <p>通过动态图形展示直角三角形三边的关系。调整直角三角形的边长，观察斜边平方如何等于两直角边平方之和。</p>
+                            <div class="geogebra-container">
+                                <i class="fas fa-shapes"></i>
+                                <p>交互式GeoGebra示例：勾股定理的可视化证明</p>
+                            </div>
+                            <a href="https://www.geogebra.org/m/s2ubgs5c" target="_blank" class="example-link">打开示例 <i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    
+                    <!-- 示例2 -->
+                    <div class="example-card">
+                        <div class="example-header">
+                            <h4>二次函数图像探索</h4>
+                        </div>
+                        <div class="example-content">
+                            <p>通过调整参数a、b、c的值，观察二次函数图像的变化规律。理解顶点、对称轴和开口方向如何随参数变化。</p>
+                            <div class="geogebra-container">
+                                <i class="fas fa-chart-line"></i>
+                                <p>交互式GeoGebra示例：二次函数图像与参数关系</p>
+                            </div>
+                            <a href="https://www.geogebra.org/m/dwtuqfyg" target="_blank" class="example-link">打开示例 <i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    
+                    <!-- 示例3 -->
+                    <div class="example-card">
+                        <div class="example-header">
+                            <h4>圆的几何性质</h4>
+                        </div>
+                        <div class="example-content">
+                            <p>探索圆的基本元素：圆心、半径、直径、弦、弧和扇形。通过拖动点来观察圆的性质如何变化。</p>
+                            <div class="geogebra-container">
+                                <i class="fas fa-circle"></i>
+                                <p>交互式GeoGebra示例：圆的几何性质与元素</p>
+                            </div>
+                            <a href="https://www.geogebra.org/m/j4j833ky" target="_blank" class="example-link">打开示例 <i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    
+                    <!-- 示例4 -->
+                    <div class="example-card">
+                        <div class="example-header">
+                            <h4>三角函数图像</h4>
+                        </div>
+                        <div class="example-content">
+                            <p>探索正弦、余弦和正切函数的图像。调整振幅、周期和相位，观察函数图像如何相应变化。</p>
+                            <div class="geogebra-container">
+                                <i class="fas fa-wave-square"></i>
+                                <p>交互式GeoGebra示例：三角函数图像与变换</p>
+                            </div>
+                            <a href="https://www.geogebra.org/m/mhkuzf4m" target="_blank" class="example-link">打开示例 <i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    
+                    <!-- 示例5 -->
+                    <div class="example-card">
+                        <div class="example-header">
+                            <h4>立体几何：长方体</h4>
+                        </div>
+                        <div class="example-content">
+                            <p>探索长方体的三维结构。旋转、缩放模型，观察顶点、棱和面的关系，计算体积和表面积。</p>
+                            <div class="geogebra-container">
+                                <i class="fas fa-cube"></i>
+                                <p>交互式GeoGebra示例：长方体的三维可视化</p>
+                            </div>
+                            <a href="https://www.geogebra.org/m/rcmfvfac" target="_blank" class="example-link">打开示例 <i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    
+                    <!-- 示例6 -->
+                    <div class="example-card">
+                        <div class="example-header">
+                            <h4>导数与切线</h4>
+                        </div>
+                        <div class="example-content">
+                            <p>可视化函数在某点的导数与切线的关系。拖动点观察切线的变化，直观理解导数的几何意义。</p>
+                            <div class="geogebra-container">
+                                <i class="fas fa-project-diagram"></i>
+                                <p>交互式GeoGebra示例：导数与切线的几何意义</p>
+                            </div>
+                            <a href="https://www.geogebra.org/m/rbzth4mk" target="_blank" class="example-link">打开示例 <i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 资源部分 -->
+        <section class="resources" id="resources">
+            <div class="container">
+                <h2 class="section-title">学习资源与链接</h2>
+                <p class="section-subtitle">以下是一些有用的数学学习资源和GeoGebra相关链接，可以帮助您更好地使用GeoGebra进行数学学习。</p>
+                
+                <div class="resource-list">
+                    <div class="resource-item">
+                        <i class="fas fa-download"></i>
+                        <h4>下载GeoGebra</h4>
+                        <p>获取最新版GeoGebra软件，支持Windows、Mac、Linux、iOS和Android。</p>
+                        <a href="https://www.geogebra.org/download" target="_blank" class="example-link">访问官网</a>
+                    </div>
+                    
+                    <div class="resource-item">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h4>GeoGebra教程</h4>
+                        <p>官方教程和文档，帮助您学习如何使用GeoGebra的各种功能。</p>
+                        <a href="https://www.geogebra.org/materials" target="_blank" class="example-link">查看教程</a>
+                    </div>
+                    
+                    <div class="resource-item">
+                        <i class="fas fa-users"></i>
+                        <h4>社区资源</h4>
+                        <p>访问GeoGebra社区，探索其他用户创建的数千个交互式数学资源。</p>
+                        <a href="https://www.geogebra.org/explore" target="_blank" class="example-link">浏览社区</a>
+                    </div>
+                    
+                    <div class="resource-item">
+                        <i class="fas fa-book"></i>
+                        <h4>数学学习网站</h4>
+                        <p>推荐数学学习网站：可汗学院、Wolfram MathWorld等优质资源。</p>
+                        <a href="https://www.khanacademy.org/math" target="_blank" class="example-link">访问资源</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>关于本站</h4>
+                    <p>这是一个个人数学学习项目，专注于使用GeoGebra探索数学概念。网站分享交互式数学可视化示例，旨在让数学学习更加直观有趣。</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>快速链接</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">首页</a></li>
+                        <li><a href="#about">关于GeoGebra</a></li>
+                        <li><a href="#examples">交互示例</a></li>
+                        <li><a href="#resources">学习资源</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>联系我</h4>
+                    <p>如果您有任何问题、建议或想分享您的GeoGebra创作，欢迎联系我。</p>
+                    <p><i class="fas fa-envelope"></i> mathlearner@example.com</p>
+                    
+                    <div class="social-links">
+                        <a href="https://github.com/dushif1/geogebra-math" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="#" aria-label="GeoGebra"><i class="fas fa-square-root-alt"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 数学学习空间. 本网站仅供个人学习使用. GeoGebra是GeoGebra GmbH的注册商标.</p>
+                <p>网站示例链接指向GeoGebra官方社区共享资源。</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 平滑滚动导航链接
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // 为示例卡片添加悬停动画
+        document.querySelectorAll('.example-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+        
+        // 简单的页面加载动画
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
