@@ -1,0 +1,26 @@
+<html>
+<head>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta charset="utf-8"/>
+
+<script src="GeoGebra/deployggb.js"></script>
+
+
+<script>
+    var params = {"appName": "graphing", "width": 1366, "height": 768, "showToolBar": true, "showAlgebraInput": true, "showMenuBar": true,  "filename": "向量.ggb" };
+    var applet = new GGBApplet(params, true);
+
+   applet.setHTML5Codebase('GeoGebra/HTML5/5.0/web3d/');
+
+    window.addEventListener("load", function() {
+        applet.inject('ggb-element');
+    });
+</script>
+
+</head>
+
+<body>
+<div id="ggb-element"></div>
+
+</body>
+</html>
