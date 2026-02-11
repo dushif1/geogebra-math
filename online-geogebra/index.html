@@ -1,0 +1,41 @@
+<html>
+<head>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta charset="utf-8"/>
+
+<script src="https://www.geogebra.org/apps/deployggb.js"></script>
+
+
+<script>
+    // var params = {"appName": "graphing", 
+    // "width": 1366, 
+    // "height": 768, 
+    // "showToolBar": true, 
+    // "showAlgebraInput": true, 
+    // "showMenuBar": true };
+
+    var params = {
+    appName: "geometry",          // 使用“几何”应用，工具最全
+    //"appName": "classic", // 或 "geometry", "3d" ,"graphing"等
+    width: 1366,
+    height: 768,
+    showToolBar: true,            // 必须设为 true
+    showAlgebraInput: true,       // 可选：显示代数输入框
+    showMenuBar: true,            // 可选：显示菜单栏
+    showResetIcon: true           // 可选：显示重置图标
+};
+
+    var applet = new GGBApplet(params, true);
+    window.addEventListener("load", function() {
+        applet.inject('ggb-element');
+    });
+
+</script>
+
+</head>
+
+<body>
+<div id="ggb-element"></div>
+
+</body>
+</html>

@@ -11,13 +11,14 @@
         <!-- 3. 配置并启动应用，自动加载文件 -->
  
         var params = {
-            "appName": "graphing",
+            "appName": "geometry",
             //"appName": "classic", // 或 "geometry", "3d" ,"graphing"等
             "showToolBar": true,
             "showAlgebraInput": true,
             "showMenuBar": true,
-            "width": 800,
-            "height": 600,
+            "width": 1366,
+            "height": 768,
+            "filename": "ggb/斜二测画法-等腰直角三角形.ggb",
             // "filename": "ggb/斜二测画法-等腰直角三角形.ggb"
             //"material_id": "你的GeoGebra材料ID", // 方式A：加载已上传至GeoGebra资料库的文件
             // "filename": "你的文件网络绝对地址.ggb" // 方式B：加载您自己服务器上的文件
@@ -26,7 +27,7 @@
         var applet = new GGBApplet(params, true);
 
 
-        applet.setHTML5Codebase('geogebra-math-apps-bundle-5-4-915-1/GeoGebra/HTML5/5.0/web3d/');
+        // applet.setHTML5Codebase('geogebra-math-apps-bundle-5-4-915-1/GeoGebra/HTML5/5.0/web3d/');
 
         window.addEventListener("load", function() {
             applet.inject('ggb-container');
